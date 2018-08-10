@@ -101,7 +101,6 @@ class element extends \mod_customcert\element {
                 WHERE course = :course
                 ORDER BY section',
                     array('course' => $COURSE->id));
-
         } catch (\dml_exception $e) {
             $sections = null;
         }
@@ -290,7 +289,9 @@ class element extends \mod_customcert\element {
             // Check that recurring dateranges are not longer than 12 months.
             if (!empty($data['recurring'][$i]) && $rangeperiod >= self::MAX_RECURRING_PERIOD) {
                 $errors[$this->build_element_name('enddate', $i)] = get_string('error:recurring', 'customcertelement_daterange');
+
             }
+
         }
 
         // Check that datestring is set for enabled dataranges.
