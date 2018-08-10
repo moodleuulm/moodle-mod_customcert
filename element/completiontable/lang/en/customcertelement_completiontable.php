@@ -61,9 +61,6 @@ $string['content_help'] = 'This hold the configuration of the content of the com
         <li>When using the {section-label:12345} placeholder within a section row, the section row will only be added to the certificate if the corresponding section is visible.</li>
         </ul>
         ';
-$string['error:elementwidthlessthanzero'] = 'Width must be greater than 0';
-$string['error:elementwidthgreaterthanmaxwidth'] = 'Width must be less than or equal {$a}mm';
-$string['preview'] = 'Preview {$a}';
 $string['dateranges'] = 'Dateranges';
 $string['fallbackstring'] = 'Fallback string';
 $string['fallbackstring_help'] = 'This string will be displayed if no daterange applies to a date. If Fallback string is not set, then there will be no output at all.';
@@ -79,7 +76,10 @@ $string['datestring'] = 'String';
 $string['daterange'] = 'Daterange {$a}';
 $string['error:enabled'] = 'You must have at least one datarange enabled';
 $string['error:datestring'] = 'You must provide string representation for the enabled datarange';
+$string['error:elementwidthlessthanzero'] = 'Width must be greater than 0';
+$string['error:elementwidthgreaterthanmaxwidth'] = 'Width must be less than or equal {$a}mm';
 $string['error:enddate'] = 'End date must be after Start date';
 $string['error:recurring'] = 'Recurring range must not be longer than 12 months';
+$string['preview'] = 'Preview {$a}';
 $string['recurring'] = 'Recurring?';
 $string['sectionplaceholders'] = 'Section placeholders';
