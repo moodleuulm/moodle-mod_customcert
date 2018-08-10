@@ -202,7 +202,6 @@ class element extends \mod_customcert\element {
      */
     protected function build_element_name($name, $num)
     {
-
         return $name . '[' . $num . ']';
     }
 
@@ -584,7 +583,6 @@ class element extends \mod_customcert\element {
             } else {
                 $matchedrage->startdate = strtotime(date('d.m.', $matchedrage->startdate) . date('Y', $date));
                 $matchedrage->enddate = strtotime(date('d.m.', $matchedrage->enddate) . date('Y', $date));
-
                 return $matchedrage;
             }
 
