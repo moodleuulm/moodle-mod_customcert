@@ -79,6 +79,11 @@ class element extends \mod_customcert\element {
     const DATE_YEAR_PLACEHOLDER = '{{date_year}}';
 
     /**
+     * Default max number of dateranges per element.
+     */
+    const DEFAULT_MAX_RANGES = 10;
+
+    /**
      * This function renders the form elements when adding a customcert element.
      *
      * @param \mod_customcert\edit_element_form $mform the edit_form instance
@@ -118,6 +123,7 @@ class element extends \mod_customcert\element {
         }
 
         parent::render_form_elements($mform);
+
 
         $mform->addElement('header', 'dateranges', get_string('dateranges', 'customcertelement_daterange'));
         $mform->addElement('static', 'help', '', get_string('help', 'customcertelement_daterange'));
@@ -228,12 +234,18 @@ class element extends \mod_customcert\element {
 
             $element = $mform->getElement('fallbackstring');
             $element->setValue($this->get_decoded_data()->fallbackstring);
+            $element = $mform->getElement('numranges');
+            $numranges = $element->getValue();
+            if ($numranges < $this->get_decoded_data()->numranges) {
+                $element->setValue($this->get_decoded_data()->numranges);
+            }
 
             foreach ($this->get_decoded_data()->dateranges as $key => $range) {
                 $mform->setDefault($this->build_element_name('startdate', $key), $range->startdate);
                 $mform->setDefault($this->build_element_name('enddate', $key), $range->enddate);
                 $mform->setDefault($this->build_element_name('datestring', $key), $range->datestring);
                 $mform->setDefault($this->build_element_name('recurring', $key), $range->recurring);
+                $mform->setDefault($this->build_element_name('enabled', $key), $range->enabled);
             }
         }
 
@@ -301,7 +313,6 @@ class element extends \mod_customcert\element {
                     $errors[$name] = get_string('error:datestring', 'customcertelement_completiontable');
                 }
             }
-
             for ($i = 0; $i < $data['numranges']; $i++) {
                 $enabled = $this->build_element_name('enabled', $i);
                 $recurring = $this->build_element_name('recurring', $i);
