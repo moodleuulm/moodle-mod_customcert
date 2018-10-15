@@ -716,10 +716,22 @@ class element extends \mod_customcert\element {
         } else {
             $modulecompletion = null;
             try {
-                $select = 'coursemoduleid = :cmid AND userid = :userid';
+                $select = 'coursemoduleid = :cmid AND userid = :userid AND (
+                        completionstate = :complstate1 OR
+                        completionstate = :complstate2 OR
+                        completionstate = :complstate3
+                    )';
                 $params = array(
                     'cmid' => $cmid,
-                    'userid' => $user->id);
+                    'userid' => $user->id,
+                    'complstate1' => COMPLETION_COMPLETE,
+                    'complstate2' => COMPLETION_COMPLETE_PASS,
+                    'complstate3' => COMPLETION_COMPLETE_FAIL
+                    /* We could also use negative matching with completionstate<>COMPLETION_INCOMPLETE;
+                    * the solution chosen here might make the code easier to understand or easier to grep and is more aligned with
+                    * other parts of the Moodle codebase.
+                    */
+                    );
                 $modulecompletion = $DB->get_record_select('course_modules_completion', $select, $params, '*', IGNORE_MISSING);
             } catch ( \dml_exception $e) {
                 $modulecompletion = null;
