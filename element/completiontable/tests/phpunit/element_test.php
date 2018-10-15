@@ -38,6 +38,7 @@ define('MOD_CUSTOMCERT_TESTS_COMPLETED_FALLBACKSTRING', '***COMPLETED***');
 define('MOD_CUSTOMCERT_TESTS_MATCH_DONE',     '>' . MOD_CUSTOMCERT_TESTS_COMPLETED_FALLBACKSTRING . '<');
 define('MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE', '>' . '&mdash;' . '<');
 
+
 class customcertelement_completiontable_element_test extends advanced_testcase {
 
     // Use helper functions in generator.
@@ -62,6 +63,7 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
      */
     protected function create_completiontable_element_for_cm(assign $activity) {
         $elementdata = new \stdClass();
+
         $elementdata->element = 'hacked_completiontable_for_testing';
 
         // Prevent error message, because component cannot be found, by explicitly setting 'name' property beforehand.
@@ -83,6 +85,7 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
 	       }'; //JSON format.
 	
 	    $elementdata->element = 'completiontable';
+
         $elementdata->data = '{
                "content" : "{completion:' . $activity->get_course_module()->id . '}",
                "fallbackstring" : "",
@@ -138,6 +141,7 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
             array('completion' => COMPLETION_TRACKING_AUTOMATIC));
         $assignx = $this->create_instance($course, ['completionusegrade' => 1],
             array('completion' => COMPLETION_TRACKING_AUTOMATIC));
+
         $this->set_assignment_gradepass($assign0, '50.0');
         // Assignment 1 does not use grading.
         $this->set_assignment_gradepass($assign2, '50.0');
@@ -152,6 +156,7 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
         $elementx = $this->create_completiontable_element_for_cm($assignx);
 
         // Check that elements are not marked as completed; element::render_table is not public, so we test with render_html.
+
         $this->setUser($student);
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element0->render_html());
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element1->render_html());
@@ -171,9 +176,11 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
 
         // Simulate marking assignment by teacher and reverting the marking later.
         $this->mark_submission($teacher, $assign0, $student, 80.0);
+
         // NB: mark_submission switches users, so we must call setUser between mark_submission and render_html calls!
         $this->setUser($student);
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element0->render_html()); // Complete, pass.
+
         $this->mark_submission($teacher, $assign0, $student, ''); // Remove mark.
 
         // Simulate marking assignment as complete by student.
@@ -194,12 +201,14 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
         assignment X: (no row in database). */
 
         // Check that the completion states are correctly taken into account so that e.g. completion dates for the elements appear.
+
         $this->setUser($student);
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element0->render_html()); // Incomplete (stored explicitly).
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element1->render_html());     // Complete.
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element2->render_html());     // Complete, pass.
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element3->render_html());     // Complete, fail.
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $elementx->render_html()); // Incomplete (no data).
+
     }
 
 }
