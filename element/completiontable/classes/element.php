@@ -814,7 +814,6 @@ class element extends \mod_customcert\element {
             if (!$cm) {
                 return '<div style="color: red"> Invalid ID </div>';
             }
-
             if ($preview) {
                 $completiondate = self::COMPLETION_DATE_PREVIEW;
             } else {
