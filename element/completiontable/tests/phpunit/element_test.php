@@ -74,7 +74,7 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
 	       "dateranges": []
 	       }'; //JSON format.
 	
-	$elementdata->element = 'completiontable';
+	    $elementdata->element = 'completiontable';
         $elementdata->data = '{
                "content" : "{completion:' . $activity->get_course_module()->id . '}",
                "fallbackstring" : "",
