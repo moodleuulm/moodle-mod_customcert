@@ -716,9 +716,11 @@ class element extends \mod_customcert\element {
         } else {
             $modulecompletion = null;
             try {
-                $modulecompletion = $DB->get_record('course_modules_completion', array(
-                        'coursemoduleid' => $cmid,
-                        'userid' => $user->id));
+                $select = 'coursemoduleid = :cmid AND userid = :userid';
+                $params = array(
+                    'cmid' => $cmid,
+                    'userid' => $user->id);
+                $modulecompletion = $DB->get_record_select('course_modules_completion', $select, $params, '*', IGNORE_MISSING);
             } catch ( \dml_exception $e) {
                 $modulecompletion = null;
             }
