@@ -32,15 +32,10 @@ global $CFG;
 require_once($CFG->dirroot . '/mod/customcert/element/completiontable/tests/phpunit/fixtures/hacked_completiontable_for_testing_element.php');
 require_once($CFG->dirroot . '/mod/assign/tests/generator.php');
 
-<<<<<<< HEAD
 define('MOD_CUSTOMCERT_TESTS_COMPLETED_FALLBACKSTRING', '***COMPLETED***');
 
 // Prepare the strings for comparisons.
 define('MOD_CUSTOMCERT_TESTS_MATCH_DONE',     '>' . MOD_CUSTOMCERT_TESTS_COMPLETED_FALLBACKSTRING . '<');
-=======
-// Prepare the strings for comparisons.
-define('MOD_CUSTOMCERT_TESTS_MATCH_DONE',     '><');
->>>>>>> b2b3c7a (LMS-2994 tests (5/8) - Add constants holding expected results)
 define('MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE', '>' . '&mdash;' . '<');
 
 class customcertelement_completiontable_element_test extends advanced_testcase {
