@@ -32,8 +32,10 @@ global $CFG;
 require_once($CFG->dirroot . '/mod/customcert/element/completiontable/tests/phpunit/fixtures/hacked_completiontable_for_testing_element.php');
 require_once($CFG->dirroot . '/mod/assign/tests/generator.php');
 
+define('MOD_CUSTOMCERT_TESTS_COMPLETED_FALLBACKSTRING', '***COMPLETED***');
+
 // Prepare the strings for comparisons.
-define('MOD_CUSTOMCERT_TESTS_MATCH_DONE',     '><');
+define('MOD_CUSTOMCERT_TESTS_MATCH_DONE',     '>' . MOD_CUSTOMCERT_TESTS_COMPLETED_FALLBACKSTRING . '<');
 define('MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE', '>' . '&mdash;' . '<');
 
 class customcertelement_completiontable_element_test extends advanced_testcase {
@@ -67,7 +69,7 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
 
         $elementdata->data = '{
                "content" : "{completion:' . $activity->get_course_module()->id . '}",
-               "fallbackstring" : "",
+               "fallbackstring" : "' . MOD_CUSTOMCERT_TESTS_COMPLETED_FALLBACKSTRING . '",
                "numranges": 0,
                "dateranges": []
             }'; // JSON format.
