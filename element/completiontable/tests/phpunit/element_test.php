@@ -38,7 +38,6 @@ define('MOD_CUSTOMCERT_TESTS_COMPLETED_FALLBACKSTRING', '***COMPLETED***');
 define('MOD_CUSTOMCERT_TESTS_MATCH_DONE',     '>' . MOD_CUSTOMCERT_TESTS_COMPLETED_FALLBACKSTRING . '<');
 define('MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE', '>' . '&mdash;' . '<');
 
-
 class customcertelement_completiontable_element_test extends advanced_testcase {
 
     // Use helper functions in generator.
