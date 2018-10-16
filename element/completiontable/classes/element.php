@@ -784,7 +784,6 @@ class element extends \mod_customcert\element {
                 } catch (\dml_exception $e) {
                     $modulecompletion = null;
                 }
-
                 $completiondate = $modulecompletion ?
                     $this->get_daterange_string($modulecompletion->timemodified) : self::COMPLETION_DATE_NOT_COMPLETED;
             }
