@@ -155,6 +155,8 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
 
         // Simulate marking assignment by teacher and reverting the marking later.
         $this->mark_submission($teacher, $assign0, $student, 80.0);
+        // NB: mark_submission switches users, so we must call setUser between mark_submission and render_html calls!
+        $this->setUser($student);
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element0->render_html()); // Complete, pass.
         $this->mark_submission($teacher, $assign0, $student, ''); // Remove mark.
 
@@ -176,6 +178,7 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
         assignment X: (no row in database). */
 
         // Check that the completion states are correctly taken into account so that e.g. completion dates for the elements appear.
+        $this->setUser($student);
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element0->render_html()); // Incomplete (stored explicitly).
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element1->render_html());     // Complete.
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element2->render_html());     // Complete, pass.
