@@ -126,6 +126,7 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
         $elementx = $this->create_completiontable_element_for_cm($assignx);
 
         // Check that elements are not marked as completed; element::render_table is not public, so we test with render_html.
+        $this->setUser($student);
         $this->assertContains('>&mdash;<', $element0->render_html());
         $this->assertContains('>&mdash;<', $element1->render_html());
         $this->assertContains('>&mdash;<', $element2->render_html());
