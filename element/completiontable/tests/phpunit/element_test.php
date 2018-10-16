@@ -56,7 +56,11 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
      */
     protected function create_completiontable_element_for_cm(assign $activity) {
         $elementdata = new \stdClass();
-        $elementdata->element = 'completiontable';
+        $elementdata->element = 'hacked_completiontable_for_testing';
+
+        // Prevent error message, because component cannot be found, by explicitly setting 'name' property beforehand.
+        $elementdata->name = get_string('pluginname', 'customcertelement_completiontable');
+
         $elementdata->data = '{
                "content" : "{completion:' . $activity->get_course_module()->id . '}",
                "fallbackstring" : "",
