@@ -32,6 +32,10 @@ global $CFG;
 require_once($CFG->dirroot . '/mod/customcert/element/completiontable/tests/phpunit/fixtures/hacked_completiontable_for_testing_element.php');
 require_once($CFG->dirroot . '/mod/assign/tests/generator.php');
 
+// Prepare the strings for comparisons.
+define('MOD_CUSTOMCERT_TESTS_MATCH_DONE',     '><');
+define('MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE', '>' . '&mdash;' . '<');
+
 class customcertelement_completiontable_element_test extends advanced_testcase {
 
     // Use helper functions in generator.
@@ -131,11 +135,11 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
 
         // Check that elements are not marked as completed; element::render_table is not public, so we test with render_html.
         $this->setUser($student);
-        $this->assertContains('>&mdash;<', $element0->render_html());
-        $this->assertContains('>&mdash;<', $element1->render_html());
-        $this->assertContains('>&mdash;<', $element2->render_html());
-        $this->assertContains('>&mdash;<', $element3->render_html());
-        $this->assertContains('>&mdash;<', $elementx->render_html());
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element0->render_html());
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element1->render_html());
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element2->render_html());
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element3->render_html());
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $elementx->render_html());
 
         // Simulate student submission for assignments.
         $this->add_submission($student, $assign0); $this->submit_for_grading($student, $assign0);
@@ -149,7 +153,7 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
 
         // Simulate marking assignment by teacher and reverting the marking later.
         $this->mark_submission($teacher, $assign0, $student, 80.0);
-        $this->assertNotContains('>&mdash;<', $element0->render_html()); // Complete, pass.
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element0->render_html()); // Complete, pass.
         $this->mark_submission($teacher, $assign0, $student, ''); // Remove mark.
 
         // Simulate marking assignment as complete by student.
@@ -170,11 +174,11 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
         assignment X: (no row in database). */
 
         // Check that the completion states are correctly taken into account so that e.g. completion dates for the elements appear.
-        $this->assertContains('>&mdash;<', $element0->render_html());  // Incomplete (stored explicitly).
-        $this->assertEquals('>&mdash;<', $element1->render_html());    // Complete.
-        $this->assertEquals('>&mdash;<', $element2->render_html());    // Complete, pass.
-        $this->assertEquals('>&mdash;<', $element3->render_html());    // Complete, fail.
-        $this->assertContains('>&mdash;<', $elementx->render_html());  // Incomplete (no data).
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element0->render_html()); // Incomplete (stored explicitly).
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element1->render_html());     // Complete.
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element2->render_html());     // Complete, pass.
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element3->render_html());     // Complete, fail.
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $elementx->render_html()); // Incomplete (no data).
     }
 
 }
