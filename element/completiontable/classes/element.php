@@ -752,7 +752,7 @@ class element extends \mod_customcert\element {
      * @return string
      * @throws \coding_exception
      */
-    private function render_table($text, $user, $preview) {
+    protected function render_table($text, $user, $preview) {
         global $DB;
 
         /* Adding '^' and '|' for easier mark up header and section row.
