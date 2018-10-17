@@ -796,10 +796,8 @@ class element extends \mod_customcert\element {
                 $select = 'coursemoduleid = :cmid AND userid = :userid AND (
                         completionstate = :complstate1 OR
                         completionstate = :complstate2
-                        completionstate = :complstate2 OR
-                        completionstate = :complstate3
                     )';
-                $params = array(
+                $params = [
                     'cmid' => $cmid,
                     'userid' => $user->id,
                     'complstate1' => COMPLETION_COMPLETE,
@@ -809,7 +807,7 @@ class element extends \mod_customcert\element {
                     * the solution chosen here might make the code easier to understand or easier to grep and is more aligned with
                     * other parts of the Moodle codebase.
                     */
-                    );
+                    ];
                 $modulecompletion = $DB->get_record_select('course_modules_completion', $select, $params, '*', IGNORE_MISSING);
 
             } catch ( \dml_exception $e) {
