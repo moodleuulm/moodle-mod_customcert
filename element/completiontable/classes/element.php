@@ -835,8 +835,8 @@ class element extends \mod_customcert\element {
                     'userid' => $user->id,
                     'complstate1' => COMPLETION_COMPLETE,
                     'complstate2' => COMPLETION_COMPLETE_PASS,
-                    'complstate3' => COMPLETION_COMPLETE_FAIL
-                    /* We could also use negative matching with completionstate<>COMPLETION_INCOMPLETE;
+                    /* We could also use negative matching with completionstate<>COMPLETION_INCOMPLETE AND
+                    * completionstate<>COMPLETION_COMPLETE_FAIL;
                     * the solution chosen here might make the code easier to understand or easier to grep and is more aligned with
                     * other parts of the Moodle codebase.
                     */
