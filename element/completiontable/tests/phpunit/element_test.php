@@ -70,9 +70,9 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
         $elementdata->data = '{
                "content" : "{completion:' . $activity->get_course_module()->id . '}",
                "fallbackstring" : "' . MOD_CUSTOMCERT_TESTS_COMPLETED_FALLBACKSTRING . '",
-	       "numranges": 0,
-	       "dateranges": []
-	       }'; //JSON format.
+               "numranges": 0,
+               "dateranges": []
+               }'; //JSON format.
         $element = \mod_customcert\element_factory::get_element_instance($elementdata);
 
         return $element;
