@@ -73,7 +73,7 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
                "numranges": 0,
                "dateranges": []
                }'; //JSON format.
-	
+
         $element = \mod_customcert\element_factory::get_element_instance($elementdata);
 
         return $element;
