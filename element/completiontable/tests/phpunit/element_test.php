@@ -182,7 +182,7 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element0->render_html()); // Incomplete (stored explicitly).
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element1->render_html());     // Complete.
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element2->render_html());     // Complete, pass.
-        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_DONE, $element3->render_html());     // Complete, fail.
+        $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $element3->render_html());     // Complete, fail.
         $this->assertContains(MOD_CUSTOMCERT_TESTS_MATCH_NOT_DONE, $elementx->render_html()); // Incomplete (no data).
     }
 
