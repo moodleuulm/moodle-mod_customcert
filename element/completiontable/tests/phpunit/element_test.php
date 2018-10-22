@@ -112,16 +112,16 @@ class customcertelement_completiontable_element_test extends advanced_testcase {
         $student = $this->getDataGenerator()->create_and_enrol($course, 'student');
 
         // Add five assignment activities that use completion.
-        $assign0 = $this->create_instance($course, [],
-            array('completion' => COMPLETION_TRACKING_AUTOMATIC, 'completionusegrade' => 1));
+        $assign0 = $this->create_instance($course, ['completionusegrade' => 1],
+            array('completion' => COMPLETION_TRACKING_AUTOMATIC));
         $assign1 = $this->create_instance($course, [],
             array('completion' => COMPLETION_TRACKING_AUTOMATIC, 'completionview' => COMPLETION_VIEW_REQUIRED));
-        $assign2 = $this->create_instance($course, [],
-            array('completion' => COMPLETION_TRACKING_AUTOMATIC, 'completionusegrade' => 1));
-        $assign3 = $this->create_instance($course, [],
-            array('completion' => COMPLETION_TRACKING_AUTOMATIC, 'completionusegrade' => 1));
-        $assignx = $this->create_instance($course, [],
-            array('completion' => COMPLETION_TRACKING_AUTOMATIC, 'completionusegrade' => 1));
+        $assign2 = $this->create_instance($course, ['completionusegrade' => 1],
+            array('completion' => COMPLETION_TRACKING_AUTOMATIC));
+        $assign3 = $this->create_instance($course, ['completionusegrade' => 1],
+            array('completion' => COMPLETION_TRACKING_AUTOMATIC));
+        $assignx = $this->create_instance($course, ['completionusegrade' => 1],
+            array('completion' => COMPLETION_TRACKING_AUTOMATIC));
         $this->set_assignment_gradepass($assign0, '50.0');
         // Assignment 1 does not use grading.
         $this->set_assignment_gradepass($assign2, '50.0');
