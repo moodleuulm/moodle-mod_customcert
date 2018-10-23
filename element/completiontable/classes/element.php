@@ -854,7 +854,7 @@ class element extends \mod_customcert\element {
             }
             return $completiondate;
         }
-
+        
         /**
          * Render completion table
          * @param $text : content of the table
