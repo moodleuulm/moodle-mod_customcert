@@ -94,20 +94,14 @@ class element extends \mod_customcert\element {
 
         // Content Of The table.
         $mform->addElement('textarea', 'content', get_string('content', 'customcertelement_completiontable'),
-            'wrap="virtual" rows="20" cols="100"');
-    }
-    public function render_form_elements($mform) {
-            global $DB, $COURSE;
+                'wrap="virtual" rows="20" cols="100"');
+        $mform->setType('content', PARAM_RAW);
+        $mform->addHelpButton('content', 'content', 'customcertelement_completiontable');
 
-            // Content Of The table.
-            $mform->addElement('textarea', 'content', get_string('content', 'customcertelement_completiontable'), 'wrap="virtual" rows="20" cols="100"');
-            $mform->setType('content', PARAM_RAW);
-            $mform->addHelpButton('content', 'content', 'customcertelement_completiontable');
-
-            // List Of Sections.
-            $sections = null;
-            try {
-                $sections = $DB->get_records_sql('SELECT *
+        // List Of Sections.
+        $sections = null;
+        try {
+            $sections = $DB->get_records_sql('SELECT *
                     FROM {course_sections}
                     WHERE course = :course
                     ORDER BY section',
@@ -207,7 +201,7 @@ class element extends \mod_customcert\element {
                 $mform->disabledIf($this->build_element_name('recurring', $i), $this->build_element_name('enabled', $i), 'notchecked');
                 $mform->disabledIf($this->build_element_name('datestring', $i), $this->build_element_name('enabled', $i), 'notchecked');
             }
-        }
+    }
 
         /**
          * A helper function to build consistent form element name.
