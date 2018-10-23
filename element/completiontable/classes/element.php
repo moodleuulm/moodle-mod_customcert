@@ -813,6 +813,7 @@ class element extends \mod_customcert\element {
             } catch ( \dml_exception $e) {
                 $modulecompletion = null;
             }
+            
             // Work around PHP_CodeStyle raising an error here due to newline in the ternary operator.
             // The proper fix is to upgrade this module to moodle-plugin-ci, version 2;
             // we are internally tracking this in LMS-3013.
