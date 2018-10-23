@@ -819,7 +819,6 @@ class element extends \mod_customcert\element {
             } else {
                 $modulecompletion = null;
                 try {
-
                     $modulecompletion = $DB->get_record('course_modules_completion', array(
                         'coursemoduleid' => $cmid,
                         'userid' => $user->id));
