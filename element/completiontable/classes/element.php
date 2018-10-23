@@ -736,8 +736,13 @@ class element extends \mod_customcert\element {
                 $modulecompletion = null;
             }
 
+            // Work around PHP_CodeStyle raising an error here due to newline in the ternary operator.
+            // The proper fix is to upgrade this module to moodle-plugin-ci, version 2;
+            // we are internally tracking this in LMS-3013.
+            // @codingStandardsIgnoreStart
             $completiondate = $modulecompletion ?
                     $this->get_daterange_string($modulecompletion->timemodified) : self::COMPLETION_DATE_NOT_COMPLETED;
+            // @codingStandardsIgnoreEnd
         }
 
         return $completiondate;
