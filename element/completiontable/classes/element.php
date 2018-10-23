@@ -92,7 +92,8 @@ class element extends \mod_customcert\element {
         global $DB, $COURSE;
 
         // Content Of The table.
-        $mform->addElement('textarea', 'content', get_string('content', 'customcertelement_completiontable'), 'wrap="virtual" rows="20" cols="100"');
+        $mform->addElement('textarea', 'content', get_string('content', 'customcertelement_completiontable'),
+                'wrap="virtual" rows="20" cols="100"');
         $mform->setType('content', PARAM_RAW);
         $mform->addHelpButton('content', 'content', 'customcertelement_completiontable');
 
@@ -116,7 +117,8 @@ class element extends \mod_customcert\element {
                 }
                 $sectionlines .= ': {section-label:'.$section->id.'}</div>';
             }
-            $mform->addElement('static', 'sectionhelp', get_string('sectionplaceholders', 'customcertelement_completiontable'), $sectionlines);
+            $mform->addElement('static', 'sectionhelp', get_string('sectionplaceholders', 'customcertelement_completiontable'),
+                    $sectionlines);
         }
 
         parent::render_form_elements($mform);
