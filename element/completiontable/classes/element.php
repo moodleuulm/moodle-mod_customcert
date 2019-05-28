@@ -79,16 +79,12 @@ class element extends \mod_customcert\element {
     const DATE_YEAR_PLACEHOLDER = '{{date_year}}';
 
     /**
-     * Default max number of dateranges per element.
-     */
-    const DEFAULT_MAX_RANGES = 10;
-
-    /**
      * This function renders the form elements when adding a customcert element.
      *
      * @param \mod_customcert\edit_element_form $mform the edit_form instance
      */
-    public function render_form_elements($mform) {
+    public function render_form_elements($mform)
+    {
         global $DB, $COURSE;
 
         // Content Of The table.
@@ -130,8 +126,8 @@ class element extends \mod_customcert\element {
         $mform->addElement('text', 'fallbackstring', get_string('fallbackstring', 'customcertelement_daterange'));
         $mform->addHelpButton('fallbackstring', 'fallbackstring', 'customcertelement_daterange');
         $mform->setType('fallbackstring', PARAM_NOTAGS);
-	
-	if (empty($this->get_decoded_data()->dateranges)) {
+
+        if (empty($this->get_decoded_data()->dateranges)) {
             $repeats = 1;
         } else {
             $repeats = count($this->get_decoded_data()->dateranges);
@@ -146,6 +142,7 @@ class element extends \mod_customcert\element {
                 $maxranges = $this->get_decoded_data()->numranges;
             }
         }
+
         $ranges = [];
 
         $ranges[] = $mform->createElement('html', '<hr>');
@@ -193,69 +190,6 @@ class element extends \mod_customcert\element {
 
         $addstring = get_string('addrange', 'customcertelement_daterange');
         $this->get_edit_element_form()->repeat_elements($ranges, $repeats, $rangeoptions, 'repeats', 'add', 1, $addstring, true);
-	
-	if (!$maxranges = get_config('customcertelement_completiontable', 'maxranges')) {
-            $maxranges = self::DEFAULT_MAX_RANGES;
-        }
-
-        if (!empty($this->get_data())) {
-            if ($maxranges < $this->get_decoded_data()->numranges) {
-                $maxranges = $this->get_decoded_data()->numranges;
-            }
-        }
-
-        $mform->addElement('hidden', 'numranges', $maxranges);
-        $mform->setType('numranges', PARAM_INT);
-
-        for ($i = 0; $i < $maxranges; $i++) {
-
-            $mform->addElement('static',
-                $this->build_element_name('group', $i),
-                get_string('daterange', 'customcertelement_completiontable', $i + 1),
-                ''
-            );
-
-            $mform->addElement(
-                'checkbox',
-                $this->build_element_name('enabled', $i),
-                get_string('enable')
-            );
-            $mform->setType($this->build_element_name('enabled', $i), PARAM_BOOL);
-
-            $mform->addElement(
-                'date_selector',
-                $this->build_element_name('startdate', $i),
-                get_string('start', 'customcertelement_completiontable')
-            );
-            $mform->setType($this->build_element_name('startdate', $i), PARAM_INT);
-
-            $mform->addElement(
-                'date_selector',
-                $this->build_element_name('enddate', $i),
-                get_string('end', 'customcertelement_completiontable')
-            );
-            $mform->setType($this->build_element_name('enddate', $i), PARAM_INT);
-
-            $mform->addElement(
-                'checkbox',
-                $this->build_element_name('recurring', $i),
-                get_string('recurring', 'customcertelement_completiontable')
-            );
-            $mform->setType($this->build_element_name('recurring', $i), PARAM_BOOL);
-
-            $mform->addElement(
-                'text',
-                $this->build_element_name('datestring', $i),
-                get_string('datestring', 'customcertelement_completiontable'),
-                ['class' => 'datestring']
-            );
-            $mform->setType($this->build_element_name('datestring', $i), PARAM_NOTAGS);
-
-            $mform->disabledIf($this->build_element_name('startdate', $i), $this->build_element_name('enabled', $i), 'notchecked');
-            $mform->disabledIf($this->build_element_name('enddate', $i), $this->build_element_name('enabled', $i), 'notchecked');
-            $mform->disabledIf($this->build_element_name('recurring', $i), $this->build_element_name('enabled', $i), 'notchecked');
-            $mform->disabledIf($this->build_element_name('datestring', $i), $this->build_element_name('enabled', $i), 'notchecked');
-        }
     }
 
     /**
@@ -266,8 +200,12 @@ class element extends \mod_customcert\element {
      *
      * @return string
      */
+<<<<<<< HEAD
     protected function build_element_name($name, $num)
     {
+=======
+    protected function build_element_name($name, $num) {
+>>>>>>> ad134e4 (LMS-2306 - Adapt completiontable element after daterange element was integrated upstream)
         return $name . '[' . $num . ']';
     }
 
@@ -295,24 +233,18 @@ class element extends \mod_customcert\element {
             $element = $mform->getElement('fallbackstring');
             $element->setValue($this->get_decoded_data()->fallbackstring);
 
-            $element = $mform->getElement('numranges');
-            $numranges = $element->getValue();
-            if ($numranges < $this->get_decoded_data()->numranges) {
-                $element->setValue($this->get_decoded_data()->numranges);
-            }
-
             foreach ($this->get_decoded_data()->dateranges as $key => $range) {
                 $mform->setDefault($this->build_element_name('startdate', $key), $range->startdate);
                 $mform->setDefault($this->build_element_name('enddate', $key), $range->enddate);
                 $mform->setDefault($this->build_element_name('datestring', $key), $range->datestring);
                 $mform->setDefault($this->build_element_name('recurring', $key), $range->recurring);
-                $mform->setDefault($this->build_element_name('enabled', $key), $range->enabled);
             }
         }
 
         parent::definition_after_data($mform);
     }
 
+<<<<<<< HEAD
         /**
          * Performs validation on the element values.
          *
@@ -327,6 +259,39 @@ class element extends \mod_customcert\element {
             // Check if width is less than 0.
             if (isset($data['width']) && ($data['width'] < 0)) {
                 $errors['width'] = get_string('error:elementwidthlessthanzero', 'customcertelement_completiontable');
+=======
+    /**
+     * Performs validation on the element values.
+     *
+     * @param array $data the submitted data
+     * @param array $files the submitted files
+     * @return array the validation errors
+     */
+    public function validate_form_elements($data, $files) {
+        $errors = parent::validate_form_elements($data, $files);
+
+        // Check if width is less than 0.
+        if (isset($data['width']) && ($data['width'] < 0)) {
+            $errors['width'] = get_string('error:elementwidthlessthanzero', 'customcertelement_completiontable');
+        }
+        // Check if width is greater than maximum width.
+        $maxwidth = $this->get_max_width();
+        if ($maxwidth > 0 && isset($data['width']) && ($data['width'] > $maxwidth)) {
+            $errors['width'] = get_string('error:elementwidthgreaterthanmaxwidth', 'customcertelement_completiontable', $maxwidth);
+        }
+
+        // Check if at least one range is set.
+        $error = get_string('error:atleastone', 'customcertelement_daterange');
+        for ($i = 0; $i < $data['repeats']; $i++) {
+            if (empty($data['rangedelete'][$i])) {
+                $error = '';
+            }
+        }
+        $error = get_string('error:enabled', 'customcertelement_completiontable');
+        for ($i = 0; $i < $data['numranges']; $i++) {
+            if (!empty($data[$this->build_element_name('enabled', $i)])) {
+                $error = '';
+>>>>>>> ad134e4 (LMS-2306 - Adapt completiontable element after daterange element was integrated upstream)
             }
             // Check if width is greater than maximum width.
             $maxwidth = $this->get_max_width();
@@ -364,6 +329,7 @@ class element extends \mod_customcert\element {
                 }
 
             }
+<<<<<<< HEAD
             // Check that datestring is set for enabled dataranges.
             for ($i = 0; $i < $data['numranges']; $i++) {
                 $enabled = $this->build_element_name('enabled', $i);
@@ -372,6 +338,12 @@ class element extends \mod_customcert\element {
                     $name = $this->build_element_name('datestring', $i);
                     $errors[$name] = get_string('error:datestring', 'customcertelement_completiontable');
                 }
+=======
+ 
+            // Check that end date is correctly set.
+            if ( $data['startdate'][$i] >= $data['enddate'][$i] ) {
+                $errors[$this->build_element_name('enddate', $i)] = get_string('error:enddate', 'customcertelement_daterange');
+>>>>>>> ad134e4 (LMS-2306 - Adapt completiontable element after daterange element was integrated upstream)
             }
             for ($i = 0; $i < $data['numranges']; $i++) {
                 $enabled = $this->build_element_name('enabled', $i);
@@ -436,6 +408,7 @@ class element extends \mod_customcert\element {
             return json_encode($arrtostore);
         }
 
+<<<<<<< HEAD
         /**
          * This defines if an element plugin can be added to a certificate.
          * Can be overridden if an element plugin wants to take over the control.
@@ -448,6 +421,21 @@ class element extends \mod_customcert\element {
             // But we don't have any module or course id available here.
             return has_capability('customcertelement/completiontable:addinstance', $context);
         }
+=======
+    /**
+     * This will handle how form data will be saved into the data column in the
+     * customcert_elements table.
+     *
+     * @param \stdClass $data the form data
+     * @return string the json encoded array
+     */
+    public function save_unique_data($data) {
+        $arrtostore = array(
+            'content' => $data->content,
+            'fallbackstring' => $data->fallbackstring,
+            'dateranges' => [],
+        );
+>>>>>>> ad134e4 (LMS-2306 - Adapt completiontable element after daterange element was integrated upstream)
 
         /**
          * Handles rendering the element on the pdf.
@@ -464,6 +452,7 @@ class element extends \mod_customcert\element {
             \mod_customcert\element_helper::render_content($pdf, $this, $htmltext);
         }
 
+<<<<<<< HEAD
         /**
          * Get daterange string.
          *
@@ -493,6 +482,32 @@ class element extends \mod_customcert\element {
                         break;
                     }
                 }
+=======
+        for ($i = 0; $i < $data->repeats; $i++) {
+            if (empty($data->rangedelete[$i])) {
+                $arrtostore['dateranges'][] = [
+                    'startdate' => $data->startdate[$i],
+                    'enddate' => $data->enddate[$i],
+                    'datestring' => $data->datestring[$i],
+                    'recurring' => !empty($data->recurring[$i]),
+		        ];
+	         }
+    	}
+        for ($i = 0; $i < $data->numranges; $i++) {
+            $startdate = $this->build_element_name('startdate', $i);
+            $enddate = $this->build_element_name('enddate', $i);
+            $datestring = $this->build_element_name('datestring', $i);
+            $recurring = $this->build_element_name('recurring', $i);
+            $enabled = $this->build_element_name('enabled', $i);
+
+            if (!empty($data->$datestring)) {
+                $arrtostore['dateranges'][] = [
+                    'startdate' => $data->startdate[$i],
+                    'enddate' => $data->enddate[$i],
+                    'datestring' => $data->datestring[$i],
+                    'recurring' => !empty($data->recurring[$i]),
+                ];
+>>>>>>> ad134e4 (LMS-2306 - Adapt completiontable element after daterange element was integrated upstream)
             }
 
             if (empty($outputstring) && !empty($this->get_decoded_data()->fallbackstring)) {
