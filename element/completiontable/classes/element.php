@@ -79,11 +79,6 @@ class element extends \mod_customcert\element {
     const DATE_YEAR_PLACEHOLDER = '{{date_year}}';
 
     /**
-     * Default max number of dateranges per element.
-     */
-    const DEFAULT_MAX_RANGES = 10;
-
-    /**
      * This function renders the form elements when adding a customcert element.
      *
      * @param \mod_customcert\edit_element_form $mform the edit_form instance
@@ -123,7 +118,6 @@ class element extends \mod_customcert\element {
         }
 
         parent::render_form_elements($mform);
-
 
         $mform->addElement('header', 'dateranges', get_string('dateranges', 'customcertelement_daterange'));
         $mform->addElement('static', 'help', '', get_string('help', 'customcertelement_daterange'));
@@ -245,7 +239,6 @@ class element extends \mod_customcert\element {
                 $mform->setDefault($this->build_element_name('enddate', $key), $range->enddate);
                 $mform->setDefault($this->build_element_name('datestring', $key), $range->datestring);
                 $mform->setDefault($this->build_element_name('recurring', $key), $range->recurring);
-                $mform->setDefault($this->build_element_name('enabled', $key), $range->enabled);
             }
         }
 
@@ -347,7 +340,6 @@ class element extends \mod_customcert\element {
                 'numranges' => 0,
                 'dateranges' => [],
             );
-
             // Set Max Width.
             if ($data->width == 0) {
                 $maxwidth = $this->get_max_width();
@@ -373,7 +365,6 @@ class element extends \mod_customcert\element {
                     $arrtostore['numranges']++;
                 }
             }
-
             // Encode these variables before saving into the DB.
             return json_encode($arrtostore);
         }
