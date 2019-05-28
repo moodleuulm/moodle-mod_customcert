@@ -60,25 +60,9 @@ $string['content_help'] = 'This hold the configuration of the content of the com
         <li>When using the {section-label:12345} placeholder within a section row, the section row will only be added to the certificate if the corresponding section is visible.</li>
         </ul>
         ';
-$string['dateranges'] = 'Dateranges';
-$string['fallbackstring'] = 'Fallback string';
-$string['fallbackstring_help'] = 'This string will be displayed if no daterange applies to a date. If Fallback string is not set, then there will be no output at all.';
-$string['help'] = 'Configure a string representation for each daterange. Make sure your ranges do not overlap, otherwise the first matched daterange will be applied. If no daterange matched a date, then Fallback string will be displayed. If Fallback string is not set, then there will be no output.<br/> If you mark a date range as Recurring, then the configured year will not be considered. As the year of a recurring date range is not considered, you are not allowed to configure a recurring date range with more than 12 months as it would become ambiguous otherwise.';
-$string['placeholders'] = 'Also following placeholders could be used in the string representation or fallback string. <br/> {{range_first_year}} - first year of the matched range,<br/> {{range_last_year}} - last year of the matched range,<br/> {{recurring_range_first_year}} - first year of the matched recurring period,<br/> {{recurring_range_last_year}} - last year of the matched recurring period,<br/> {{current_year}} - the current year,<br/>  {{date_year}} - a year of the users\'s date.';
-$string['maxranges'] = 'Maximum number ranges';
-$string['maxranges_desc'] = 'Set a maximum number of date ranges per each element';
 $string['pluginname'] = 'Completion Table';
 $string['privacy:metadata'] = 'The Completion Table plugin does not store any personal data.';
-$string['start'] = 'Start';
-$string['end'] = 'End';
-$string['datestring'] = 'String';
-$string['daterange'] = 'Daterange {$a}';
-$string['error:enabled'] = 'You must have at least one datarange enabled';
-$string['error:datestring'] = 'You must provide string representation for the enabled datarange';
 $string['error:elementwidthlessthanzero'] = 'Width must be greater than 0';
 $string['error:elementwidthgreaterthanmaxwidth'] = 'Width must be less than or equal {$a}mm';
-$string['error:enddate'] = 'End date must be after Start date';
-$string['error:recurring'] = 'Recurring range must not be longer than 12 months';
 $string['preview'] = 'Preview {$a}';
-$string['recurring'] = 'Recurring?';
 $string['sectionplaceholders'] = 'Section placeholders';
