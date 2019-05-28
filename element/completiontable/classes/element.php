@@ -285,14 +285,13 @@ class element extends \mod_customcert\element {
                     $errors[$this->build_element_name('enddate', $i)] = get_string('error:enddate', 'customcertelement_daterange');
                 }
 
-
                 $rangeperiod = $data['enddate'][$i] - $data['startdate'][$i];
-
                 // Check that recurring dateranges are not longer than 12 months.
                 if (!empty($data['recurring'][$i]) && $rangeperiod >= self::MAX_RECURRING_PERIOD) {
                     $errors[$this->build_element_name('enddate', $i)] = get_string('error:recurring', 'customcertelement_daterange');
 
                 }
+
             }
 
             // Check that datestring is set for enabled dataranges.
