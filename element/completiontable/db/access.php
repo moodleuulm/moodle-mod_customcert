@@ -15,16 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file contains the version information for the completiontable plugin.
+ * Customcert completiontable capability definition
  *
- * @package     customcertelement_completiontable
- * @copyright   2018 Nathan Nguyen  <nathannguyen@@catalyst-au.net>
- * @copyright   2018 Dmitrii Metelkin <dmitriim@catalyst-au.net>
+ * @package    customcertelement_completiontable
+ * @copyright  2019 Alexander Bias <alexander.bias@uni-ulm.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die('Direct access to this script is forbidden.');
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2019052901; // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2018051700; // Requires this Moodle version (3.4).
-$plugin->component = 'customcertelement_completiontable';
+$capabilities = array(
+
+    'customcertelement/completiontable:addinstance' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_MODULE
+    ),
+);

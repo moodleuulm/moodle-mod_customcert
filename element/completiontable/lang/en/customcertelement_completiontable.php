@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die('Direct access to this script is forbidden.');
 
+$string['completiontable:addinstance'] = 'Add a Completion Table element';
 $string['content'] = 'Content';
 $string['content_help'] = 'This hold the configuration of the content of the completion table.<br /><br />
         <h4>Header rows</h4>
