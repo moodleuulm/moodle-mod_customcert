@@ -321,6 +321,18 @@ class element extends \mod_customcert\element {
     }
 
     /**
+     * This defines if an element plugin can be added to a certificate.
+     * Can be overridden if an element plugin wants to take over the control.
+     *
+     * @return bool returns true if the element can be added, false otherwise
+     */
+    public static function can_add() {
+        $context = \context_system::instance(); // Well, this is hacky and does not respect capabilities on lower levels.
+                                                // But we don't have any module or course id available here.
+        return has_capability('customcertelement/completiontable:addinstance', $context);
+    }
+
+    /**
      * Handles rendering the element on the pdf.
      *
      * @param \pdf $pdf the pdf object
