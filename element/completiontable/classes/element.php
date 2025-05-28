@@ -83,8 +83,7 @@ class element extends \mod_customcert\element {
      *
      * @param \mod_customcert\edit_element_form $mform the edit_form instance
      */
-    public function render_form_elements($mform)
-    {
+    public function render_form_elements($mform) {
         global $DB, $COURSE;
 
         // Content Of The table.
@@ -142,7 +141,6 @@ class element extends \mod_customcert\element {
                 $maxranges = $this->get_decoded_data()->numranges;
             }
         }
-
         $ranges = [];
 
         $ranges[] = $mform->createElement('html', '<hr>');
@@ -756,10 +754,8 @@ class element extends \mod_customcert\element {
                 $select = 'coursemoduleid = :cmid AND userid = :userid AND (
                         completionstate = :complstate1 OR
                         completionstate = :complstate2
-                        completionstate = :complstate2 OR
-                        completionstate = :complstate3
                     )';
-                $params = array(
+                $params = [
                     'cmid' => $cmid,
                     'userid' => $user->id,
                     'complstate1' => COMPLETION_COMPLETE,
@@ -769,7 +765,7 @@ class element extends \mod_customcert\element {
                     * the solution chosen here might make the code easier to understand or easier to grep and is more aligned with
                     * other parts of the Moodle codebase.
                     */
-                    );
+                    ];
                 $modulecompletion = $DB->get_record_select('course_modules_completion', $select, $params, '*', IGNORE_MISSING);
             } catch ( \dml_exception $e) {
                 $modulecompletion = null;
