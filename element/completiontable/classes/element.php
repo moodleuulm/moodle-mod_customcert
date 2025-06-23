@@ -83,8 +83,7 @@ class element extends \mod_customcert\element {
      *
      * @param \mod_customcert\edit_element_form $mform the edit_form instance
      */
-    public function render_form_elements($mform)
-    {
+    public function render_form_elements($mform) {
         global $DB, $COURSE;
 
         // Content Of The table.
@@ -142,7 +141,6 @@ class element extends \mod_customcert\element {
                 $maxranges = $this->get_decoded_data()->numranges;
             }
         }
-
         $ranges = [];
 
         $ranges[] = $mform->createElement('html', '<hr>');
@@ -225,11 +223,6 @@ class element extends \mod_customcert\element {
 
             $element = $mform->getElement('fallbackstring');
             $element->setValue($this->get_decoded_data()->fallbackstring);
-            $element = $mform->getElement('numranges');
-            $numranges = $element->getValue();
-            if ($numranges < $this->get_decoded_data()->numranges) {
-                $element->setValue($this->get_decoded_data()->numranges);
-            }
 
             foreach ($this->get_decoded_data()->dateranges as $key => $range) {
                 $mform->setDefault($this->build_element_name('startdate', $key), $range->startdate);
@@ -319,34 +312,11 @@ class element extends \mod_customcert\element {
             }
 
             $rangeperiod = $data['enddate'][$i] - $data['startdate'][$i];
+
             // Check that recurring dateranges are not longer than 12 months.
             if (!empty($data[$recurring]) && $rangeperiod >= self::MAX_RECURRING_PERIOD ) {
                 $errors[$this->build_element_name('enddate', $i)] = get_string('error:recurring', 'customcertelement_completiontable');
             }
-            if (!empty($data['recurring'][$i]) && $rangeperiod >= self::MAX_RECURRING_PERIOD ) {
-                $errors[$this->build_element_name('enddate', $i)] = get_string('error:recurring', 'customcertelement_daterange');
-            }
-        }
-
-        // Check that datestring is set for enabled dataranges.
-        for ($i = 0; $i < $data['numranges']; $i++) {
-            $enabled = $this->build_element_name('enabled', $i);
-            $datestring = $this->build_element_name('datestring', $i);
-            if (!empty($data[$enabled]) && empty($data[$datestring])) {
-                $name = $this->build_element_name('datestring', $i);
-
-                $errors[$name] = get_string('error:datestring', 'customcertelement_completiontable');
-
-            }
-
-            // Check that end date is correctly set.
-            if ( $data['startdate'][$i] >= $data['enddate'][$i] ) {
-                $errors[$this->build_element_name('enddate', $i)] = get_string('error:enddate', 'customcertelement_daterange');
-            }
-
-            $rangeperiod = $data['enddate'][$i] - $data['startdate'][$i];
-
-            // Check that recurring dateranges are not longer than 12 months.
             if (!empty($data['recurring'][$i]) && $rangeperiod >= self::MAX_RECURRING_PERIOD ) {
                 $errors[$this->build_element_name('enddate', $i)] = get_string('error:recurring', 'customcertelement_daterange');
             }
@@ -373,14 +343,14 @@ class element extends \mod_customcert\element {
             $maxwidth = $this->get_max_width();
             $data->width = $maxwidth;
         }
+
         for ($i = 0; $i < $data->repeats; $i++) {
             if (empty($data->rangedelete[$i])) {
                 $arrtostore['dateranges'][] = [
                     'startdate' => $data->startdate[$i],
                     'enddate' => $data->enddate[$i],
                     'datestring' => $data->datestring[$i],
-                    'recurring' => !empty($data->recurring[$i]),,
-                    'enabled' => !empty($data->$enabled[$i]),
+                    'recurring' => !empty($data->recurring[$i]),
 		        ];
 	         }
     	}
@@ -397,7 +367,6 @@ class element extends \mod_customcert\element {
                     'enddate' => $data->enddate[$i],
                     'datestring' => $data->datestring[$i],
                     'recurring' => !empty($data->recurring[$i]),
-                    'enabled' => !empty($data->$enabled[$i]),
                 ];
             }
         }
@@ -798,11 +767,10 @@ class element extends \mod_customcert\element {
                     */
                     ];
                 $modulecompletion = $DB->get_record_select('course_modules_completion', $select, $params, '*', IGNORE_MISSING);
-
             } catch ( \dml_exception $e) {
                 $modulecompletion = null;
             }
-            
+
             // Work around PHP_CodeStyle raising an error here due to newline in the ternary operator.
             // The proper fix is to upgrade this module to moodle-plugin-ci, version 2;
             // we are internally tracking this in LMS-3013.
