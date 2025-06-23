@@ -544,7 +544,7 @@ class certificate {
         $event = \mod_customcert\event\issue_created::create([
             'objectid' => $issueid,
             'context' => $context,
-            'relateduserid' => $userid,
+            'relateduserid' => $userid
         ]);
         $event->trigger();
 
