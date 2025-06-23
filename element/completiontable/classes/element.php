@@ -83,8 +83,7 @@ class element extends \mod_customcert\element {
      *
      * @param \mod_customcert\edit_element_form $mform the edit_form instance
      */
-    public function render_form_elements($mform)
-    {
+    public function render_form_elements($mform) {
         global $DB, $COURSE;
 
         // Content Of The table.
@@ -142,7 +141,6 @@ class element extends \mod_customcert\element {
                 $maxranges = $this->get_decoded_data()->numranges;
             }
         }
-
         $ranges = [];
 
         $ranges[] = $mform->createElement('html', '<hr>');
@@ -228,11 +226,6 @@ class element extends \mod_customcert\element {
 
             $element = $mform->getElement('fallbackstring');
             $element->setValue($this->get_decoded_data()->fallbackstring);
-            $element = $mform->getElement('numranges');
-            $numranges = $element->getValue();
-            if ($numranges < $this->get_decoded_data()->numranges) {
-                $element->setValue($this->get_decoded_data()->numranges);
-            }
 
             foreach ($this->get_decoded_data()->dateranges as $key => $range) {
                 $mform->setDefault($this->build_element_name('startdate', $key), $range->startdate);
@@ -296,7 +289,6 @@ class element extends \mod_customcert\element {
                 }
 
             }
-
             // Check that datestring is set for enabled dataranges.
             for ($i = 0; $i < $data['numranges']; $i++) {
                 $enabled = $this->build_element_name('enabled', $i);
