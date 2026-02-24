@@ -89,7 +89,7 @@ class element extends \mod_customcert\element {
 
         // Content Of The table.
         $mform->addElement('textarea', 'content', get_string('content', 'customcertelement_completiontable'),
-                'wrap="virtual" rows="20" cols="100"');
+            'wrap="virtual" rows="20" cols="100"');
         $mform->setType('content', PARAM_RAW);
         $mform->addHelpButton('content', 'content', 'customcertelement_completiontable');
 
@@ -133,6 +133,15 @@ class element extends \mod_customcert\element {
             $repeats = count($this->get_decoded_data()->dateranges);
         }
 
+	    if (!$maxranges = get_config('customcertelement_completiontable', 'maxranges')) {
+            $maxranges = self::DEFAULT_MAX_RANGES;
+        }
+
+        if (!empty($this->get_data())) {
+            if ($maxranges < $this->get_decoded_data()->numranges) {
+                $maxranges = $this->get_decoded_data()->numranges;
+            }
+        }
         $ranges = [];
 
         $ranges[] = $mform->createElement('html', '<hr>');
