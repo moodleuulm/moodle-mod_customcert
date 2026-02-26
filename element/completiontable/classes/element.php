@@ -529,8 +529,7 @@ class element extends \mod_customcert\element {
          *
          * @return bool
          */
-        protected
-        function in_end_year($date, \stdClass $range)
+        protected function in_end_year($date, \stdClass $range)
         {
             $intdate = $this->build_number_from_date($date);
             $intstart = $this->build_number_from_date($range->startdate);
@@ -545,10 +544,8 @@ class element extends \mod_customcert\element {
          * As recurring date ranges do not depend on the year,
          * we will use a date's year to build a new matched recurring date range with
          * start year and end year. This is required to replace placeholders like range_first_year and range_last_year.
-         *
          * @param int $date Unix timestamp date to check.
          * @param \stdClass $range Range object.
-         *
          * @return \stdClass || null
          */
         protected
